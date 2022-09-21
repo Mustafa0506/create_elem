@@ -6,8 +6,6 @@ let top_btn_two = document.querySelector('.top_btn_two')
 let pushBlock = document.querySelector('.maim_card')
 let pushBlockOne = document.querySelector('.main_basket')
 
-
-
 let arr = [
     {
         "id": 1,
@@ -255,7 +253,6 @@ let arr = [
 let cart = []
 
 
-
 data_num.innerHTML = `В корзине: ${cart.length}  товар`
 
 reload(arr)
@@ -336,11 +333,13 @@ function reload(data) {
                 cart = cart.filter(elem => elem.id !== item.id)
                 bottom_btn.innerHTML = "В избранное"
 
+                cartReload(cart)
             } else {
                 bottom_btn.classList.add('bottom_btn_after')
                 cart.push(item)
                 bottom_btn.innerHTML = "Добавлено"
 
+                cartReload(cart)
             }
 
             data_num.innerHTML = `В корзине: ${cart.length}  товар`
@@ -358,106 +357,103 @@ top_btn_two.onclick = () => {
 }
 
 
+function cartReload(data) {
+    pushBlockOne.innerHTML = ""
+    
+    
+    for (let item of data) {
+        let content = document.createElement('div')
 
-for (let item of arr) {
+        let main_basket_left = document.createElement('div')
+        let main_basket_right = document.createElement('div')
 
-    //  basket 
+        let left_img = document.createElement('img')
 
-    //  a
+        let main_basket_right_title = document.createElement('div')
+        let main_basket_right_left_side = document.createElement('div')
 
-    let content = document.createElement('div')
+        let main_basket_right_title_text = document.createElement('h1')
+        let main_basket_right_price_tex = document.createElement('p')
 
-    let main_basket_left = document.createElement('div')
-    let main_basket_right = document.createElement('div')
+        let main_basket_right_price = document.createElement('div')
+        let main_basket_right_price_text = document.createElement('p')
 
-    let left_img = document.createElement('img')
-
-    let main_basket_right_title = document.createElement('div')
-    let main_basket_right_left_side = document.createElement('div')
-
-    let main_basket_right_title_text = document.createElement('h1')
-    let main_basket_right_price_tex = document.createElement('p')
-
-    let main_basket_right_price = document.createElement('div')
-    let main_basket_right_price_text = document.createElement('p')
-
-    let main_basket_right_count = document.createElement('div')
+        let main_basket_right_count = document.createElement('div')
 
 
-    let right_plus = document.createElement('button')
-    let right_num = document.createElement('button')
-    let right_min = document.createElement('button')
+        let right_plus = document.createElement('button')
+        let right_num = document.createElement('button')
+        let right_min = document.createElement('button')
 
-    //  b
+        //  b
 
-    content.classList.add('content')
+        content.classList.add('content')
 
-    main_basket_left.classList.add('main_basket_left')
-    main_basket_right.classList.add('main_basket_right')
+        main_basket_left.classList.add('main_basket_left')
+        main_basket_right.classList.add('main_basket_right')
 
-    left_img.src = item.image
+        left_img.src = item.image
 
-    main_basket_right_title.classList.add('main_basket_right_title')
-    main_basket_right_title_text.innerHTML = item.title.length > 10 ? item.title.slice(0, 10) : item.title
-    main_basket_right_title_text.style.marginLeft = '30px'
-    main_basket_right_price_tex.innerHTML = `${item.price} $`
+        main_basket_right_title.classList.add('main_basket_right_title')
+        main_basket_right_title_text.innerHTML = item.title.length > 10 ? item.title.slice(0, 10) : item.title
+        main_basket_right_title_text.style.marginLeft = '30px'
+        main_basket_right_price_tex.innerHTML = `${item.price} $`
 
-    main_basket_right_left_side.classList.add('main_basket_right_left_side')
+        main_basket_right_left_side.classList.add('main_basket_right_left_side')
 
-    main_basket_right_price.classList.add('main_basket_right_price')
+        main_basket_right_price.classList.add('main_basket_right_price')
 
-    main_basket_right_count.classList.add('main_basket_right_count')
+        main_basket_right_count.classList.add('main_basket_right_count')
 
-    right_plus.classList.add('right_plus')
-    right_num.classList.add('right_num')
-    right_min.classList.add('right_min')
+        right_plus.classList.add('right_plus')
+        right_num.classList.add('right_num')
+        right_min.classList.add('right_min')
 
-    right_plus.innerHTML = '+'
-    right_num.innerHTML = 0
-    right_min.innerHTML = '-'
+        right_plus.innerHTML = '+'
+        right_num.innerHTML = 1
+        right_min.innerHTML = '-'
 
-    // c
+        // c
 
-    pushBlockOne.append(content)
+        pushBlockOne.append(content)
 
-    content.append(main_basket_left, main_basket_right)
+        content.append(main_basket_left, main_basket_right)
 
-    main_basket_left.append(left_img)
-    main_basket_right.append(main_basket_right_title, main_basket_right_left_side)
+        main_basket_left.append(left_img)
+        main_basket_right.append(main_basket_right_title, main_basket_right_left_side)
 
-    main_basket_right_title.append(main_basket_right_title_text)
+        main_basket_right_title.append(main_basket_right_title_text)
 
-    main_basket_right_left_side.append(main_basket_right_price, main_basket_right_count)
+        main_basket_right_left_side.append(main_basket_right_price, main_basket_right_count)
 
-    main_basket_right_price.append(main_basket_right_price_tex)
+        main_basket_right_price.append(main_basket_right_price_tex)
 
-    main_basket_right_count.append(right_plus, right_num, right_min)
+        main_basket_right_count.append(right_plus, right_num, right_min)
 
-    let num = 0
-    let a = item.price
-    right_plus.onclick = () => {
-        num++
-        right_num.innerHTML = num
-        a += item.price
-        a = Math.round(a)
-        main_basket_right_price_tex.innerHTML = `${a} $`
-    }
-    right_min.onclick = () => {
-        if (num > 0) {
-            num--
+        let num = 0
+        let a = item.price
+        right_plus.onclick = () => {
+            num++
             right_num.innerHTML = num
-            a -= item.price
+            a += item.price
             a = Math.round(a)
             main_basket_right_price_tex.innerHTML = `${a} $`
-        } else {
-            right_num.innerHTML = 0
-
         }
+        right_min.onclick = () => {
+            if (num > 0) {
+                num--
+                right_num.innerHTML = num
+                a -= item.price
+                a = Math.round(a)
+                main_basket_right_price_tex.innerHTML = `${a} $`
+            } else {
+                right_num.innerHTML = 0
+
+            }
+        }
+
     }
-
 }
-
-
 
 
 

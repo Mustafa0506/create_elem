@@ -203,7 +203,6 @@ textarea {
 .main_basket {
     margin: 30px auto;
     width: 1728px;
-    height: 4500px;
     display: flex;
     flex-direction: column;
     align-items: center;
